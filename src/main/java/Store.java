@@ -53,7 +53,7 @@ public class Store {
 
         // Below callable methods are used in executor service. This calls methods from StoreAPI as per requirement
         Callable<Object> createAccount = () -> {
-            StoreAPI storeOperations = new StoreAPIMysqlImpl();
+            StoreAPI storeOperations = new StoreAPIMongoImpl();
             Fairy fairy = Fairy.create();
             Person person = fairy.person();
             storeOperations.createAccount(person.getUsername(), person.getPassword(), person.getFirstName(), person.getLastName());
@@ -62,7 +62,7 @@ public class Store {
         };
 
         Callable<Object> addProduct = () -> {
-            StoreAPI storeOperations = new StoreAPIMysqlImpl();
+            StoreAPI storeOperations = new StoreAPIMongoImpl();
             Fairy fairy = Fairy.create();
             TextProducer text = fairy.textProducer();
             storeOperations.addProduct(-1, text.sentence(getRandomNumber(1, 10)), text.paragraph(getRandomNumber(1, 50)), (float) getRandomNumber(1, 3000), getRandomNumber(1, 5000));
@@ -71,14 +71,14 @@ public class Store {
         };
 
         Callable<Object> updateStockLevel = () -> {
-            StoreAPI storeOperations = new StoreAPIMysqlImpl();
+            StoreAPI storeOperations = new StoreAPIMongoImpl();
             storeOperations.updateStockLevel(getRandomNumber(0, 9999), getRandomNumber(0, 500));
             numberOfOperations += 1;
             return null;
         };
 
         Callable<Object> submitOrder = () -> {
-            StoreAPI storeOperations = new StoreAPIMysqlImpl();
+            StoreAPI storeOperations = new StoreAPIMongoImpl();
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             Date date = new Date();
             int getRandomUserId = getRandomNumber(0, 999);
@@ -88,7 +88,7 @@ public class Store {
         };
 
         Callable<Object> postReviews = () -> {
-            StoreAPI storeOperations = new StoreAPIMysqlImpl();
+            StoreAPI storeOperations = new StoreAPIMongoImpl();
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             Date date = new Date();
             int getRandomUserId = getRandomNumber(0, 999);
@@ -100,14 +100,14 @@ public class Store {
         };
 
         Callable<Object> getProductandReviews = () -> {
-            StoreAPI storeOperations = new StoreAPIMysqlImpl();
+            StoreAPI storeOperations = new StoreAPIMongoImpl();
             storeOperations.getProductAndReviews(getRandomNumber(0, 9998));
             numberOfOperations += 1;
             return null;
         };
 
         Callable<Object> getUserAverageReviews = () -> {
-            StoreAPI storeOperations = new StoreAPIMysqlImpl();
+            StoreAPI storeOperations = new StoreAPIMongoImpl();
             storeOperations.getAverageUserRating("user_" + getRandomNumber(0, 9999));
             numberOfOperations += 1;
             return null;
@@ -144,7 +144,7 @@ public class Store {
             // wait for all the threads to terminate
         }
         // results
-        StoreAPI storeOperations = new StoreAPIMysqlImpl();
+        StoreAPI storeOperations = new StoreAPIMongoImpl();
         System.out.println("************** Operations on all threads are completed. Below are the results **************");
         System.out.println("Total Operations: " + numberOfOperations);
         int missedData[]=storeOperations.getMissedProducts();

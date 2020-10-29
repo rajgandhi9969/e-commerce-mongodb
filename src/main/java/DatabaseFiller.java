@@ -71,7 +71,7 @@ class DatabaseFiller {
      */
     public void fillUsers(int totalEntries) {
 
-        StoreAPI storeOperations = new StoreAPIMysqlImpl();
+        StoreAPI storeOperations = new StoreAPIMongoImpl();
         for (int i = 0; i < totalEntries; i++) {
             storeOperations.createAccount("user_" + i, "password_" + i, Fairy.create().person().getFirstName(), Fairy.create().person().getLastName());
         }
@@ -84,7 +84,7 @@ class DatabaseFiller {
     public void fillProducts(int totalEntries) {
         Fairy fairy = Fairy.create();
         TextProducer text = fairy.textProducer();
-        StoreAPI storeOperations = new StoreAPIMysqlImpl();
+        StoreAPI storeOperations = new StoreAPIMongoImpl();
         for (int i = 0; i < totalEntries; i++) {
             storeOperations.addProduct(i, text.sentence(getRandomNumber(1, 10)), text.paragraph(getRandomNumber(1, 50)), (float) getRandomNumber(1, 3000), getRandomNumber(1, 5000));
         }
@@ -96,7 +96,7 @@ class DatabaseFiller {
      * @param totalEntries: Total number of orders to filled
      */
     public void fillOrders(int totalEntries) {
-        StoreAPI storeOperations = new StoreAPIMysqlImpl();
+        StoreAPI storeOperations = new StoreAPIMongoImpl();
         for (int i = 0; i < totalEntries; i++) {
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             Date date = new Date();
@@ -123,7 +123,7 @@ class DatabaseFiller {
      * @param totalEntries: number reviews to be filled.
      */
     public void fillReviews(int totalEntries) {
-        StoreAPI storeOperations = new StoreAPIMysqlImpl();
+        StoreAPI storeOperations = new StoreAPIMongoImpl();
         for (int i = 0; i < totalEntries; i++) {
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             Date date = new Date();

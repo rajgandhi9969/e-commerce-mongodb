@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.time.Instant;
 import java.util.*;
 
-class StoreAPIMysqlImpl implements StoreAPI {
+class StoreAPIMongoImpl implements StoreAPI {
     // locks are required to make the application thread safe
     // order lock will ensure consistent stock in case multiple threads trying to submit order
     static Object orderLock = new Object();
